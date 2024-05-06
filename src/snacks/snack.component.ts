@@ -22,7 +22,8 @@ import { FormsModule } from '@angular/forms';
       </div>
     </div>
     <div class="container">
-      <app-snack-list [listCriteria]='listFilter'/>
+      <!-- <app-snack-list [listCriteria]='listFilter'/> -->
+      <app-snack-list [filterCriteria]='listFilter'/>
     </div>
   `
 })
