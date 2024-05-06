@@ -1,0 +1,27 @@
+<div class="card border-secondary">
+  <div class="card-header text-secondary fw-bold">
+    {{ pageTitle }}
+  </div>
+
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-4 col-sm-4 fw-bold">Name</div>
+      <div class="col-md-4 col-sm-4 fw-bold text-center">Price</div>
+    </div>
+
+    @for (snackItem of filteredSnacks(); track snackItem) {
+    <div>
+      <div>
+        <div class="row mb-2">
+          <div class="col-md-4 col-sm-4">
+            {{ snackItem.name }}
+          </div>
+          <div class="col-md-4 col-sm-4 text-center">
+            {{ snackItem.price | number : '1.2-2' }}
+          </div>
+        </div>
+      </div>
+    </div>
+    } @empty { No snacks available that match the filter }
+  </div>
+</div>
