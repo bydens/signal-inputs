@@ -1,33 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { SnackListComponent } from './snack-list.component';
-import { FormsModule } from '@angular/forms';
+import { FilterComponent } from './filter.component';
 
 @Component({
   selector: 'app-snack',
   standalone: true,
-  imports: [SnackListComponent, FormsModule],
+  imports: [SnackListComponent, FilterComponent],
   template: `
     <nav class="navbar navbar-expand navbar-light bg-light">
       <a class="navbar-brand">{{pageTitle}}</a>
     </nav>
-    <div class='card'>
-      <div class='card-body'>
-        <div class='row'>
-          <div class='col-sm-2'>Filter by:</div>
-          <div class='col-sm-2'>
-            <input type='text'
-                  [(ngModel)]='listFilter' />
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- <app-filter [(filter)]='listFilter' /> -->
+    <app-filter [(filterCriteria)]='listFilter' />
+    <!-- <app-filter [filterCriteria]='listFilter' 
+    (filterCriteriaChange)="processFilter($any($event))"/> -->
     <div class="container">
-      <!-- <app-snack-list [listCriteria]='listFilter'/> -->
-      <app-snack-list [filterCriteria]='listFilter'/>
+    <!-- <div> Filter length: {{filterLength}}</div> -->
+    <div> Filter length: {{filterLength()}}</div>
+      <!-- <app-snack-list [filterCriteria]='listFilter'/> -->
+      <app-snack-list [filterCriteria]='listFilter()'/>
     </div>
   `
 })
 export class SnackComponent {
   pageTitle = 'Menu Options';
-  listFilter = '';
+  // listFilter = '';
+  // filterLength = 0
+  listFilter = signal('');
+  filterLength = computed(() => this.listFilter().length)
+
+  // processFilter(enterFilter: string): void {
+  //   // this.listFilter = enterFilter
+  //   // this.filterLength = enterFilter.length
+  //   this.listFilter.set(enterFilter)
+  //   // this.filterLength = enterFilter.length
+  // }
 }
